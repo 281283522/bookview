@@ -1,39 +1,43 @@
-// 使用 Vite 的 import.meta.glob 在构建时批量导入 novels 目录下的所有 .md 文件
-const mdModules = import.meta.glob('/../novels/**/*.md', { query: '?raw', import: 'default' });
-
 /**
- * 解析小说目录结构，返回所有小说及其章节列表
- * @returns {Promise<Array>} [{ id, title, outline, characters, chapters: [{ id, title, file }] }]
+ * 从 public/novels/ 通过 fetch 加载小说
+ * 依赖 public/novels/manifest.json（由 scripts/gen-manifest.mjs 生成）
  */
+
+let cache = null;
+
 export async function loadNovels() {
+  if (cache) return cache;
+
+  // 1. 拉取文件清单
+  const resp = await fetch('/novels/manifest.json');
+  const files = await resp.json();
+
+  // 2. 按小说目录分组，并发拉取所有 .md 文件
   const novelMap = {};
 
-  for (const [path, loader] of Object.entries(mdModules)) {
-    const match = path.match(/\/novels\/([^/]+)\/(.+)\.md$/);
-    if (!match) continue;
-    const [, novelDir, filename] = match;
+  const loads = files.map(async ({ dir, filename }) => {
+    const mdResp = await fetch(`/novels/${dir}/${filename}`);
+    const raw = await mdResp.text();
+    const firstLine = raw.split('\n')[0]?.replace(/^#\s+/, '').trim() || '';
 
-    if (!novelMap[novelDir]) {
-      novelMap[novelDir] = {
-        id: novelDir,
-        title: novelDir,
+    if (!novelMap[dir]) {
+      novelMap[dir] = {
+        id: dir,
+        title: dir,
         outline: null,
         characters: null,
         chapters: [],
       };
     }
 
-    const raw = await loader();
-    const firstLine = raw.split('\n')[0]?.replace(/^#\s+/, '').trim() || '';
-
-    if (filename === '00-大纲') {
-      novelMap[novelDir].outline = { title: firstLine, raw };
-    } else if (filename === '01-人物档案') {
-      novelMap[novelDir].characters = { title: firstLine, raw };
+    if (filename === '00-大纲.md') {
+      novelMap[dir].outline = { title: firstLine, raw };
+    } else if (filename === '01-人物档案.md') {
+      novelMap[dir].characters = { title: firstLine, raw };
     } else {
-      const chMatch = filename.match(/^第(\d+)章-(.+)$/);
+      const chMatch = filename.match(/^第(\d+)章-(.+)\.md$/);
       if (chMatch) {
-        novelMap[novelDir].chapters.push({
+        novelMap[dir].chapters.push({
           id: `ch${chMatch[1]}`,
           index: parseInt(chMatch[1]),
           title: firstLine,
@@ -42,13 +46,16 @@ export async function loadNovels() {
         });
       }
     }
-  }
+  });
 
-  // 排序章节
+  await Promise.all(loads);
+
+  // 3. 排序
   const novels = Object.values(novelMap).map((n) => ({
     ...n,
     chapters: n.chapters.sort((a, b) => a.index - b.index),
   }));
 
+  cache = novels;
   return novels;
 }
