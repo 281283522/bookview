@@ -1,0 +1,585 @@
+.formContainer {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  padding: 40px 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formHeader {
+  text-align: center;
+  margin-bottom: 40px;
+  
+  h1 {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 300;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+  
+  p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+  }
+}
+
+.form {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 30px;
+  width: 100%;
+  max-width: 450px;
+}
+
+.inputGroup {
+  margin-bottom: 20px;
+}
+
+.inputLabel {
+  display: block;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.inputField {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  
+  &:focus {
+    border-color: #0071e3;
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+  }
+  
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+.formActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.submitBtn {
+  flex: 1;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #0071e3 0%, #005bb5 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 113, 227, 0.4);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.resetBtn {
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+.dataPreview {
+  margin-top: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  width: 100%;
+  max-width: 450px;
+  
+  h3 {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+}
+
+.jsonPreview {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 15px;
+  color: #34c759;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+@media (max-width: 600px) {
+  .formHeader h1 {
+    font-size: 24px;
+  }
+  
+  .form {
+    padding: 20px;
+  }
+  
+  .formActions {
+    flex-direction: column;
+  }
+}
+
+/* ====== 录音录像模块样式 ====== */
+
+.recorderPanel {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.recorderHeader {
+  margin-bottom: 14px;
+
+  h2 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+  }
+}
+
+/* 模式选择 */
+.modeSelect {
+  display: flex;
+  gap: 12px;
+}
+
+.modeBtn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.25s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.modeIcon {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.audioBtn:hover {
+  border-color: #34c759;
+}
+.videoBtn:hover {
+  border-color: #0071e3;
+}
+
+/* 录制主体 */
+.recorderBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.previewVideo {
+  width: 100%;
+  border-radius: 10px;
+  background: #000;
+  max-height: 280px;
+  object-fit: cover;
+}
+
+.audioReady {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+
+  .micIcon {
+    font-size: 40px;
+  }
+}
+
+.recordingIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0;
+  color: #ff4757;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.recDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff4757;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+}
+
+/* 控制按钮 */
+.recorderActions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.startRecBtn,
+.stopRecBtn,
+.downloadBtn,
+.reRecordBtn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.startRecBtn {
+  background: linear-gradient(135deg, #34c759, #28a745);
+  color: #fff;
+}
+
+.stopRecBtn {
+  background: linear-gradient(135deg, #ff4757, #e84118);
+  color: #fff;
+}
+
+.cancelBtn {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.25s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+.recorderError {
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: rgba(255, 71, 87, 0.15);
+  border: 1px solid rgba(255, 71, 87, 0.3);
+  border-radius: 8px;
+  color: #ff6b6b;
+  font-size: 13px;
+}
+
+/* 录制结果 */
+.recorderResult {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.resultLabel {
+  color: #34c759;
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+}
+
+.playbackAudio {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.playbackVideo {
+  width: 100%;
+  border-radius: 10px;
+  max-height: 300px;
+  background: #000;
+}
+
+.resultActions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.downloadBtn {
+  background: linear-gradient(135deg, #0071e3, #005bb5);
+  color: #fff;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+  }
+}
+
+.reRecordBtn {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+  }
+}
+
+/* ====== 地图定位页面样式 ====== */
+
+.mapPage {
+  min-height: 100vh;
+  background: #0f0f23;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.mapHeader {
+  text-align: center;
+  margin-bottom: 16px;
+  width: 100%;
+  max-width: 600px;
+
+  h1 {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+  }
+}
+
+.mapContainer {
+  width: 100%;
+  max-width: 600px;
+  height: 360px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.locationCard {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 加载状态 */
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #0071e3;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 错误状态 */
+.errorState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 0;
+}
+
+.errorIcon {
+  font-size: 32px;
+}
+
+.errorText {
+  color: #ff6b6b;
+  font-size: 14px;
+  text-align: center;
+}
+
+.retryBtn {
+  margin-top: 6px;
+  padding: 10px 28px;
+  background: linear-gradient(135deg, #0071e3, #005bb5);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+  }
+}
+
+/* 成功状态 */
+.successState {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.coordRow,
+.addressRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.label {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  min-width: 56px;
+  flex-shrink: 0;
+}
+
+.value {
+  color: #34c759;
+  font-size: 14px;
+  font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+  word-break: break-all;
+}
+
+.addressRow .value {
+  color: rgba(255, 255, 255, 0.85);
+  font-family: inherit;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 4px 0;
+}
+
+/* 移动端适配 */
+@media (max-width: 480px) {
+  .mapContainer {
+    height: 280px;
+  }
+
+  .mapHeader h1 {
+    font-size: 20px;
+  }
+
+  .locationCard {
+    padding: 16px;
+  }
+}
