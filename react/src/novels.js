@@ -9,14 +9,15 @@ export async function loadNovels() {
   if (cache) return cache;
 
   // 1. 拉取文件清单
-  const resp = await fetch('/novels/manifest.json');
+  const base = import.meta.env.BASE_URL;
+  const resp = await fetch(`${base}novels/manifest.json`);
   const files = await resp.json();
 
   // 2. 按小说目录分组，并发拉取所有 .md 文件
   const novelMap = {};
 
   const loads = files.map(async ({ dir, filename }) => {
-    const mdResp = await fetch(`/novels/${dir}/${filename}`);
+    const mdResp = await fetch(`${base}novels/${dir}/${filename}`);
     const raw = await mdResp.text();
     const firstLine = raw.split('\n')[0]?.replace(/^#\s+/, '').trim() || '';
 
