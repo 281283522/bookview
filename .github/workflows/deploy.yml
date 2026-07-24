@@ -28,11 +28,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
-          cache-dependency-path: react/package-lock.json
 
       - name: Install dependencies
-        run: npm install --no-audit
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install --no-audit
         working-directory: react
 
       - name: Build
