@@ -33,14 +33,15 @@ export async function loadNovels() {
 
     if (filename === '00-大纲.md') {
       novelMap[dir].outline = { title: firstLine, raw };
-    } else if (filename === '01-人物档案.md') {
+    } else if (filename === '01-人物档案.md' || filename === '人物档案.md') {
       novelMap[dir].characters = { title: firstLine, raw };
     } else {
-      const chMatch = filename.match(/^第(\d+)章-(.+)\.md$/);
+      const chMatch = filename.match(/^(?:第(\d+)章|(\d+)-)(.+)\.md$/);
       if (chMatch) {
+        const idx = parseInt(chMatch[1] || chMatch[2]);
         novelMap[dir].chapters.push({
-          id: `ch${chMatch[1]}`,
-          index: parseInt(chMatch[1]),
+          id: `ch${idx}`,
+          index: idx,
           title: firstLine,
           filename,
           raw,
